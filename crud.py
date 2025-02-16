@@ -255,34 +255,24 @@ def apagar_contato():
             conn.commit()
           except Exception as ex:
             print(ex)
-        # comando = 'delete from endereco where contato_id = ?'
-        # with sqlite3.connect('agenda.db') as conn:
-        #   try:
-        #     cursor = conn.cursor()
-        #     cursor.execute(comando, (contato[0]))
-        #     conn.commit()
-        #   except Exception as ex:
-        #     print(ex)
-        # comando = 'delete from email where contato_id = ?'
-        # with sqlite3.connect('agenda.db') as conn:
-        #   try:
-        #     cursor = conn.cursor()
-        #     cursor.execute(comando, (contato[0]))
-        #     conn.commit()
-        #   except Exception as ex:
-        #     print(ex)
-        # comando = 'delete from telefone where contato_id = ?'
-        # with sqlite3.connect('agenda.db') as conn:
-        #   try:
-        #     cursor = conn.cursor()
-        #     cursor.execute(comando, (contato[0]))
-        #     conn.commit()
-        #   except Exception as ex:
-        #     print(ex)
       else:
         print("Escolha inválida.")
   else:
     print(f"Nenhum contato com o nome '{nome_pesquisa}' foi encontrado.")
     
-apagar_contato()
-buscar_contato()
+def buscar_todos_contatos():
+  pesq_contato = buscar_todos_contatos_db()
+  
+  if pesq_contato:
+    print("\nContatos encontrados:")
+    for index, contato in enumerate(pesq_contato):
+      print(f"""
+      {index + 1}. ID: {contato[0]}, Nome: {contato[1]}, Data de Nascimento: {contato[2]}
+      Endereço: {contato[3]}, {contato[4]}, {contato[5] or 'Sem complemento'}, {contato[6]}, {contato[7]}, {contato[8]}, {contato[9]}
+      Telefone: {contato[10] or 'Não informado'}
+      Email: {contato[11] or 'Não informado'}
+      """)
+  else:
+    print(f"Nenhum contato foi encontrado.")
+    
+buscar_todos_contatos()
